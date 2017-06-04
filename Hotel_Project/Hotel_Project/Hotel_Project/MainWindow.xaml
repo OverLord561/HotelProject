@@ -1,0 +1,165 @@
+﻿<Window x:Class="Hotel_Project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Hotel Service" MinHeight="140"  MinWidth="600" MaxWidth="600" SizeToContent="Height" Icon="Images/Icon.PNG">
+    <Grid Background="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600"></ColumnDefinition>
+        </Grid.ColumnDefinitions>        
+        <Menu Grid.Row="0" Grid.Column="0">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Вихід"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Відвідувачі">
+                <MenuItem Header="Перегляд відвідувачів" Click="MenuItemShowUsers_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Готелі">
+                <MenuItem Header="Додати готель" Click="MenuItemAddHotel_Click"></MenuItem>
+                <MenuItem Header="Перегляд готелів" Click="MenuItemReviseHotels_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Номери">
+                <MenuItem Header="Додати номер" Click="MenuItemAddRoom_Click"></MenuItem>
+                <MenuItem Header="Перегляд номерів" Click="MenuItemReviseRooms_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Hotel Services" Grid.ColumnSpan="3" Grid.Row="0" FontFamily="Ravie" FontSize="24" Margin= "185,0,176,0" Foreground="#FF3E9EE0">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1" ScaleX="1"/>
+                        <SkewTransform AngleY="0" AngleX="0"/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Button Content="Забронювати номер" Grid.Column="0" Grid.Row="1" Name="btn_blockNumber" Click="btn_blockNumber_Click"/>
+            <Button Content="Здійснити оплату" Grid.Column="1" Grid.Row="1" Name="btn_payment" Click="btn_payment_Click"/>
+            <Button Content="Звільнити номер" Grid.Column="2" Grid.Row="1" Name="btn_clearNumber" Click="btn_clearNumber_Click" />
+            
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" Height="170" Visibility="Collapsed"  Name="userGrid" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="118"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="118"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="Вкажіть дату" Grid.Column="0" Margin="15,0,0,0"></Label>
+                <Label Content="З" Grid.Column="1"></Label> 
+                <DatePicker Name="datePicker1" IsDropDownOpen="False" SelectedDateFormat="Short" Grid.Column="2"/>
+                <Label Content="По" Grid.Column="3"></Label>               
+                <DatePicker Name="datePicker2" IsDropDownOpen="False" SelectedDateFormat="Short" Grid.Column="4"/>
+            </Grid>
+
+            <Label Content="Повне ім'я" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="15,0,0,0" />
+            <TextBox Name="txt_UserNameFull" Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding FullName}"/>
+
+            <Label Content="Серія паспорта" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left"  Margin="15,0,0,0" />
+            <TextBox Name="txt_UserPassportSeria" Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding PassportSeria}"/>
+
+            <Label Content="Номер паспорта" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left"  Margin="15,0,0,0" />
+            <TextBox Name="txt_UserPassportNum" Grid.Column="1" Grid.Row="3" Margin="3" Text="{Binding PassportNum}"/>
+
+            <Label Content="Номер телефону" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left"  Margin="15,0,0,0" />
+            <TextBox Name="txt_UserPhone" Grid.Column="1" Grid.Row="4" Margin="3" Text="{Binding Phone}"/>
+
+            <Button Name="btn_next1" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Height="60" Width="60" IsCancel="True" Foreground="White" BorderBrush="White" Background="White" Click="btn_next1_Click">
+                <Image HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images/Вперед.png">
+                </Image>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" Height="160" Visibility="Collapsed" Name="hotelGrid" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="450"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Виберіть готель" Grid.Row="0" Grid.Column="0"></Label>
+            <ListView Name="listHotels" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Margin="10,0">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Назва" DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
+                            <GridViewColumn Header="Адреса" DisplayMemberBinding="{Binding Path=Address}"></GridViewColumn>
+                            <GridViewColumn Header="Опис" DisplayMemberBinding="{Binding Path=Description}"></GridViewColumn>
+                            <GridViewColumn Header="Зірок" DisplayMemberBinding="{Binding Path=Stars}"></GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Name="btn_next2" Grid.Column="2"  Grid.Row="0" Grid.RowSpan="2" Height="60" Width="60" IsCancel="True" Foreground="White" BorderBrush="White" Margin="0,0,20,0" Background="White" Click="btn_next2_Click">
+                <Image HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images/Вперед.png"></Image>
+            </Button>
+            <Button Name="btn_back1" Grid.Column="1"  Grid.Row="0" Grid.RowSpan="2" Height="60" Width="60" IsCancel="True" Foreground="White" BorderBrush="White" Margin="0,0,0,0" Background="White" Click="btn_back1_Click">
+                <Image HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images/Назад.png"></Image>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" Height="160" Visibility="Collapsed"   Name="roomGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Content="Виберіть кімнату" Grid.Row="0" Grid.Column="0"></Label>
+            <ListView Name="listRooms" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Margin="10,0" ItemsSource="{Binding Path=cbx_RoomTypes}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="Номер" DisplayMemberBinding="{Binding Path=Number}"></GridViewColumn>
+                            <GridViewColumn Header="Ціна" DisplayMemberBinding="{Binding Path=Price}"></GridViewColumn>
+                            <GridViewColumn Header="Місць" DisplayMemberBinding="{Binding Path=Count}"></GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Content="Тип кімнати" Grid.Row="0" Grid.Column="1"></Label>
+            <ComboBox Grid.Column="1" Grid.Row="1" Name="cbx_RoomTypes" DisplayMemberPath="Title" SelectedValuePath="Id" SelectionChanged="cbx_RoomTypes_SelectionChanged" Margin="0,0,0,10"></ComboBox>
+            <Button Name="btn_back2" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"  Height="60" Width="60" IsCancel="True" Foreground="White" BorderBrush="White" Background="White" Click="btn_back2_Click">
+                <Image HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images/Назад.png">
+                </Image>
+            </Button>
+            <Button Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="2" Content="Забронювати" Margin="0,4,45,4" Name="btn_block" Click="btn_block_Click"></Button>
+        </Grid>
+    </Grid>
+</Window>
